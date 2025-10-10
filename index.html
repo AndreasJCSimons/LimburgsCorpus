@@ -20,7 +20,7 @@ We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs d
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=SysAWS"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=SysAWS" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=K1eja2"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=K1eja2" type="text/css">
 
   
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -80,6 +80,73 @@ We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs d
     </div>
   </div>
 </section>
+
+<div id="custom-html-10"><style>
+  /* Notification bar styling */
+  .update-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(34, 34, 34, 0.95); /* transparency */
+    font-size: 13px;
+    line-height: 1.2;
+    text-align: center;
+    padding: 4px 30px;
+    z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+  .update-banner.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .update-banner a {
+    color: #f1c40f;
+    text-decoration: underline;
+  }
+  .update-banner button {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  body.has-banner {
+    margin-top: 28px; /* Prevent overlap with header */
+  }
+</style>
+
+<div class="update-banner" id="updateBanner">
+ Heeft u moeite met het uitgebreide formulier? Voeg snel en gemakkelijk meerdere bestanden toe aan het Limburgs Corpus via het nieuwe 
+  <a href="https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_daT22uvQMXy2Aya?Q_lang=NL">Snelformulier!</a>
+  <button id="closeBanner">×</button>
+</div>
+
+<script>
+  const banner = document.getElementById('updateBanner');
+  const closeBtn = document.getElementById('closeBanner');
+
+  // Check if user has already closed the banner
+  if (localStorage.getItem('bannerClosed_v2')) {
+    banner.classList.add('hide');
+  } else {
+    document.body.classList.add('has-banner');
+  }
+
+  closeBtn.addEventListener('click', () => {
+    banner.classList.add('hide');
+    localStorage.setItem('bannerClosed_v2', 'true');
+    document.body.classList.remove('has-banner');
+  });
+</script>
+</div>
 
 <section data-bs-version="5.1" class="header18 cid-uSgRAiKb4b mbr-fullscreen" data-bg-video="https://vimeo.com/1106272635" id="hero-15-uSgRAiKb4b">
   
