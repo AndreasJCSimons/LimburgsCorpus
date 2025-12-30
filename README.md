@@ -1,5 +1,5 @@
 
-# Limburgish Dialect Corpus
+# Limburgish Corpus
 
 This repository contains a corpus of Limburgish text and audio under "corpus".  The metadata can be found under "files.json". This corpus was collected through fieldwork and crowdsourcing contributions from various authors across Limburg. For more information: https://www.limburgscorpus.com.
 
