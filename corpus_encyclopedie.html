@@ -11,7 +11,7 @@
 We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs dialect bevatten (verhalen, woordenboeken, geluidsopnames, brieven, boeken, poëzie, winkelbriefjes, etc.) om de Limburgse dialecten zo breed mogelijk te documenteren. Via deze website kan u zelf bijdragen aan het corpus en via het gemakkelijke online formulier kiest u zelf waarvoor het materiaal gebruikt mag worden (wetenschappelijk onderzoek, commercieel/niet-commercieel), en onder welke naam u hiervoor bedankt wilt worden. Het materiaal wordt langdurig bewaard aan de Universiteit Maastricht, en openbaar gemaakt (indien u dit wenst) om zo academisch onderzoek en digitale toepassingen voor het Limburgs mogelijk te maken.">
   
   
-  <title>Media</title>
+  <title>Corpus als encyclopedie</title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -20,7 +20,7 @@ We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs d
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=gWvonj"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=gWvonj" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=L06E5S"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=L06E5S" type="text/css">
 
   
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -28,7 +28,7 @@ We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs d
 </head>
 <body>
   
-  <section data-bs-version="5.1" class="menu menu1 cid-uT0NcytEUW" once="menu" id="menu01-h">
+  <section data-bs-version="5.1" class="menu menu1 cid-v6x6lNatWr" once="menu" id="menu01-1b">
 	
 
 	<nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
@@ -62,7 +62,7 @@ We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs d
 	</nav>
 </section>
 
-<section data-bs-version="5.1" class="image01 cid-uT0Nczy5LV" id="image01-i">
+<section data-bs-version="5.1" class="image01 cid-v6NdHAPUAy" id="image01-1r">
   
 
   
@@ -81,35 +81,51 @@ We zoeken concreet alle mogelijke digitale materialen die iets in een Limburgs d
   </div>
 </section>
 
-<section data-bs-version="5.1" class="article07 cid-uT0NnBmKb0" id="article07-q">
-  
+<div id="custom-html-1u"><iframe id="fileIframe" src="encyclopedia/file-browser.html" width="100%" scrolling="no" style="
+        border: none;
+        height: 2000px;
+        display: block;
+    ">
+</iframe>
 
-  
-  
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="card col-md-12 col-lg-10">
-        <div class="card-wrapper">
-          <h3 class="card-title mbr-fonts-style mbr-white mt-3 mb-4 display-2">Verschijningen in de media</h3>
-          <div class="row card-box align-left">
-            <div class="item features-without-image col-12 active">
-              <div class="item-wrapper">
-                
-                <p class="mbr-text mbr-fonts-style display-7"><a href="https://neerlandistiek.nl/2025/01/limburgs-op-de-digitale-kaart/" class="text-primary">Limburgs op de digitale kaart&nbsp;</a>(Neerlandistiek, 2025)<br><br><a href="https://www.maastrichtuniversity.nl/news/limburgish-digital-map" class="text-primary">Limburgish on the digital map</a> (Maastricht University, 2025)<br><br><a href="https://www.l1nieuws.nl/entertainment/2884093/diene-computer-kent-nog-gein-plat-mer-det-geit-verangere" class="text-primary">Diene computer kènt nog gein plat, mer det geit verangere</a> (L1, 2025)<br><br><a href="https://www.l1.nl/nieuws/2887778/vlot-het-met-de-digitalisering-van-het-limburgs" class="text-primary">Vlot het met de digitalisering van het Limburgs?</a> (L1, 2025)<br></p>
-              </div>
-            </div>
-            
-            
-            
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+(function() {
+    var iframe = document.getElementById('fileIframe');
+    
+    function resizeIframe() {
+        try {
+            var iframeDoc = iframe.contentWindow.document;
+            var height = Math.max(
+                iframeDoc.body.scrollHeight,
+                iframeDoc.body.offsetHeight,
+                iframeDoc.documentElement.scrollHeight,
+                iframeDoc.documentElement.offsetHeight
+            );
+            iframe.style.height = height + 'px';
+        } catch(e) {
+            console.log('Cannot access iframe content, using default height');
+        }
+    }
+    
+    iframe.addEventListener('load', function() {
+        resizeIframe();
+        setTimeout(resizeIframe, 100);
+        setTimeout(resizeIframe, 500);
+        setTimeout(resizeIframe, 1000);
+        setTimeout(resizeIframe, 2000);
+    });
+    
+    window.addEventListener('resize', resizeIframe);
+    
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.height) {
+            iframe.style.height = event.data.height + 'px';
+        }
+    });
+})();
+</script></div>
 
-<section data-bs-version="5.1" class="footer4 cid-uT0NcDVY9l" once="footers" id="footer04-p">
+<section data-bs-version="5.1" class="footer4 cid-v6x6lOngxa" once="footers" id="footer04-1e">
 
     
 
