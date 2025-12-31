@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Library</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #000;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .search-bar {
+            padding: 20px 30px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .stats {
+            padding: 15px 30px;
+            background: #f0f4ff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stats-info {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 5px;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .file-list {
+            padding: 20px 30px;
+            min-height: 400px;
+        }
+
+        .file-item {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            background: white;
+            overflow: hidden;
+        }
+
+        .file-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .file-main {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            margin-right: 15px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .file-icon.pdf { background: #e53e3e; }
+        .file-icon.doc { background: #3182ce; }
+        .file-icon.docx { background: #3182ce; }
+        .file-icon.txt { background: #718096; }
+        .file-icon.jpg { background: #38a169; }
+        .file-icon.jpeg { background: #38a169; }
+        .file-icon.png { background: #38a169; }
+        .file-icon.gif { background: #38a169; }
+        .file-icon.webp { background: #38a169; }
+        .file-icon.svg { background: #38a169; }
+        .file-icon.default { background: #a0aec0; }
+
+        .file-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+
+        .file-description {
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .file-meta {
+            color: #718096;
+            font-size: 13px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .file-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-dialect {
+            background: #e6f7ff;
+            color: #0066cc;
+        }
+
+        .tag-license {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-info {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-info:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-license {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .btn-license:hover {
+            background: #fde68a;
+        }
+
+        .file-expanded {
+            border-top: 1px solid #e0e0e0;
+            padding: 20px;
+            background: #f9fafb;
+            display: none;
+        }
+
+        .file-expanded.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        .expanded-section {
+            margin-bottom: 20px;
+        }
+
+        .expanded-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .expanded-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .license-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .license-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .license-details {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .attribution-box {
+            background: #fffbeb;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 4px solid #f59e0b;
+            margin-top: 10px;
+        }
+
+        .attribution-label {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .attribution-text {
+            color: #78350f;
+            font-size: 13px;
+        }
+
+        .metadata-table {
+            width: 100%;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+
+        .metadata-table tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .metadata-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .metadata-table td {
+            padding: 12px 15px;
+        }
+
+        .metadata-table td:first-child {
+            font-weight: 600;
+            color: #4a5568;
+            width: 150px;
+            background: #f9fafb;
+        }
+
+        .metadata-table td:last-child {
+            color: #2d3748;
+        }
+
+        .grid-view .file-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-view .file-main {
+            flex-direction: column;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .grid-view .file-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+
+        .grid-view .file-info {
+            margin-bottom: 15px;
+        }
+
+        .grid-view .file-meta {
+            justify-content: center;
+        }
+
+        .grid-view .file-actions {
+            justify-content: center;
+            width: 100%;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .page-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+                padding: 10px 0;
+            }
+
+            .search-bar {
+                padding: 15px 20px;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-input,
+            .filter-select {
+                min-width: 100%;
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+
+            .file-list {
+                padding: 15px 20px;
+            }
+
+            .file-main {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .file-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .file-info {
+                margin-bottom: 10px;
+            }
+
+            .file-meta {
+                justify-content: center;
+            }
+
+            .file-actions {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .metadata-table td:first-child {
+                width: 120px;
+            }
+
+            .grid-view .file-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1 class="page-title">Limburgs Corpus als encyclopedie</h1>
+    <div class="container">
+        <div class="search-bar">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Zoek op naam, dialect, auteursrechtenlicentie..."
+                >
+                <select id="dialectFilter" class="filter-select">
+                    <option value="">Alle dialecten</option>
+                </select>
+                <select id="licenseFilter" class="filter-select">
+                    <option value="">Alle licenties</option>
+                </select>
+                <select id="sortOrder" class="filter-select">
+                    <option value="name-asc">Naam (A-Z)</option>
+                    <option value="name-desc">Naam (Z-A)</option>
+                    <option value="date-desc">Nieuwste eerst</option>
+                    <option value="date-asc">Oudste eerst</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stats-info">
+                <span id="resultCount">0</span> van <span id="totalCount">0</span> bestanden
+            </div>
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="list">Lijstweergave</button>
+                <button class="view-btn" data-view="grid">Gridweergave</button>
+            </div>
+        </div>
+
+        <div class="file-list" id="fileList">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Bestanden aan het laden...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const FILES_JSON_URL = './files.json';
+
+        let allFiles = [];
+        let filteredFiles = [];
+        let currentView = 'list';
+        let expandedSections = {};
+
+        const fileList = document.getElementById('fileList');
+        const searchInput = document.getElementById('searchInput');
+        const dialectFilter = document.getElementById('dialectFilter');
+        const licenseFilter = document.getElementById('licenseFilter');
+        const sortOrder = document.getElementById('sortOrder');
+        const resultCount = document.getElementById('resultCount');
+        const totalCount = document.getElementById('totalCount');
+        const viewButtons = document.querySelectorAll('.view-btn');
+
+        async function init() {
+            try {
+                const response = await fetch(FILES_JSON_URL);
+                allFiles = await response.json();
+                filteredFiles = [...allFiles];
+                totalCount.textContent = allFiles.length;
+                
+                populateFilters();
+                
+                renderFiles();
+            } catch (error) {
+                fileList.innerHTML = `
+                    <div class="empty-state">
+                        <p style="color: #e53e3e; font-size: 18px; margin-bottom: 10px;">Oei, probleem met JSON laden!</p>
+                        <p>Zorg ervoor dat files.json bestaat.</p>
+                        <p style="margin-top: 10px; font-size: 14px;">Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function populateFilters() {
+            const dialects = new Set();
+            const licenses = new Set();
+
+            allFiles.forEach(file => {
+                if (file.dialect) dialects.add(file.dialect);
+                if (file.license) licenses.add(file.license);
+            });
+
+            Array.from(dialects).sort().forEach(dialect => {
+                const option = document.createElement('option');
+                option.value = dialect;
+                option.textContent = dialect;
+                dialectFilter.appendChild(option);
+            });
+
+            Array.from(licenses).sort().forEach(license => {
+                const option = document.createElement('option');
+                option.value = license;
+                option.textContent = license;
+                licenseFilter.appendChild(option);
+            });
+        }
+
+        function getFileExtension(filename) {
+            return filename.split('.').pop().toLowerCase();
+        }
+
+        function isImage(filename) {
+            const ext = getFileExtension(filename);
+            return ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext);
+        }
+
+        function formatFileSize(bytes) {
+            if (!bytes) return 'Unknown size';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return 'Unknown date';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function getLicenseDetails(license) {
+            const licenses = {
+                'CC BY 4.0': {
+                    name: 'Creative Commons Naamsvermelding 4.0',
+                    description: 'U bent vrij om het materiaal te kopiëren, te verspreiden en door te geven via elk medium of bestandsformaat voor alle doeleinden, inclusief commericële doeleinden. U bent vrij het te remixen, te veranderen en afgeleide werken te maken voor alle doeleinden, inclusief commerciële doeleinden. U dient de maker van het werk te vermelden, een link naar de licentie te plaatsen en aan te geven of het werk veranderd is. U mag dat op redelijke wijze doen, maar niet zodanig dat de indruk gewekt wordt dat de licentiegever instemt met je werk of je gebruik van het werk. Voor meer informatie: https://creativecommons.org/licenses/by/4.0/deed.nl.',
+                    attribution: 'U moet de auteur vermelden.'
+                },
+                'CC BY-NC 4.0': {
+                    name: 'Creative Commons Naamsvermelding-NietCommercieel 4.0',
+                    description: 'U bent vrij om het materiaal te kopiëren, te verspreiden en door te geven via elk medium of bestandsformaat, het te remixen, veranderen en afgeleide werken te maken. U mag het werk niet gebruiken voor commerciële doeleinden. U dient de maker van het werk te vermelden, een link naar de licentie te plaatsen en aan te geven of het werk veranderd is. U mag dat op redelijke wijze doen, maar niet zodanig dat de indruk gewekt wordt dat de licentiegever instemt met je werk of je gebruik van het werk. Voor meer informatie: https://creativecommons.org/licenses/by-nc/4.0/deed.nl.',
+                    attribution: 'Commercieel gebruik is niet toegestaan. U moet de auteur vermelden.'
+                },
+                'CC0 (publiek domein)': {
+                    name: 'Creative Commons Nul (Publiek domein)',
+                    description: 'De persoon die deze akte aan een werk heeft verbonden heeft het werk toegewezen aan het publiek domein door wereldwijd zijn of haar rechten op het werk onder het auteursrecht, inclusief alle bijbehorende en naburige rechten, af te staan, voor zover door de wet is toegestaan. U mag het werk zonder toestemming kopiëren, veranderen, verspreiden en uitvoeren, zelfs voor commerciële doeleinden. Toch raden we aan om de maker of de persoon die het werk heeft toegevoegd aan het corpus te vermelden (zie onderaan) Voor meer informatie: https://creativecommons.org/publicdomain/zero/1.0/deed.nl.',
+                    attribution: 'Vermelding van de auteur is niet noodzakelijk, maar wel aan te raden.'
+                },
+            };
+
+            return licenses[license] || {
+                name: license,
+                description: 'Gelieve naar de licentievoorwaarden te verwijzen voor gebruik en beperkingen.',
+                attribution: 'Zie licentievoorwaarden voor vermeldingsverplichtingen.'
+            };
+        }
+
+        function filterAndSortFiles() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const dialectValue = dialectFilter.value;
+            const licenseValue = licenseFilter.value;
+            const sortValue = sortOrder.value;
+
+            filteredFiles = allFiles.filter(file => {
+                const matchesSearch = 
+                    file.name.toLowerCase().includes(searchTerm) ||
+                    (file.dialect && file.dialect.toLowerCase().includes(searchTerm)) ||
+                    (file.license && file.license.toLowerCase().includes(searchTerm)) ||
+                    (file.description && file.description.toLowerCase().includes(searchTerm));
+                
+                const matchesDialect = !dialectValue || file.dialect === dialectValue;
+                const matchesLicense = !licenseValue || file.license === licenseValue;
+                
+                return matchesSearch && matchesDialect && matchesLicense;
+            });
+
+            filteredFiles.sort((a, b) => {
+                switch(sortValue) {
+                    case 'name-asc':
+                        return a.name.localeCompare(b.name);
+                    case 'name-desc':
+                        return b.name.localeCompare(a.name);
+                    case 'date-desc':
+                        return new Date(b.modified || 0) - new Date(a.modified || 0);
+                    case 'date-asc':
+                        return new Date(a.modified || 0) - new Date(b.modified || 0);
+                    default:
+                        return 0;
+                }
+            });
+
+            resultCount.textContent = filteredFiles.length;
+            renderFiles();
+        }
+
+        function toggleSection(fileIndex, section) {
+            const key = `${fileIndex}-${section}`;
+            const expandedDiv = document.getElementById(`expanded-${fileIndex}`);
+            const licenseContent = document.getElementById(`license-${fileIndex}`);
+            const metadataContent = document.getElementById(`metadata-${fileIndex}`);
+
+            if (expandedSections[fileIndex] === section) {
+                expandedDiv.classList.remove('active');
+                expandedSections[fileIndex] = null;
+                return;
+            }
+
+            expandedDiv.classList.add('active');
+            expandedSections[fileIndex] = section;
+
+            if (section === 'license') {
+                licenseContent.style.display = 'block';
+                metadataContent.style.display = 'none';
+            } else if (section === 'metadata') {
+                licenseContent.style.display = 'none';
+                metadataContent.style.display = 'block';
+            }
+        }
+
+        function renderFiles() {
+            if (filteredFiles.length === 0) {
+                fileList.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <p style="font-size: 18px; margin-bottom: 5px;">No documents found</p>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = filteredFiles.map((file, index) => {
+                const ext = getFileExtension(file.name);
+                const iconClass = ['pdf', 'doc', 'docx', 'txt', 'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext) ? ext : 'default';
+                
+                let iconContent;
+                if (isImage(file.name)) {
+                    iconContent = `<img src="${file.path}" alt="${file.name}" onerror="this.style.display='none'; this.parentElement.textContent='${ext.toUpperCase()}'">`;
+                } else {
+                    iconContent = ext.toUpperCase();
+                }
+
+                let metaTags = `${formatFileSize(file.size)} • ${formatDate(file.modified)}`;
+                
+                if (file.dialect) {
+                    metaTags += ` • <span class="file-tag tag-dialect">${file.dialect}</span>`;
+                }
+                
+                if (file.license) {
+                    metaTags += ` • <span class="file-tag tag-license">${file.license}</span>`;
+                }
+
+                const licenseDetails = file.license ? getLicenseDetails(file.license) : null;
+
+                const attribution = file.attribution_name || (file.author ? `© ${file.author}` : 'Zie licentie voor vermeldingsdetails.');
+                
+                return `
+                    <div class="file-item">
+                        <div class="file-main">
+                            <div class="file-icon ${iconClass}">
+                                ${iconContent}
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.title || file.name}</div>
+                                ${file.description ? `<div class="file-description">${file.description}</div>` : ''}
+                                <div class="file-meta">
+                                    ${metaTags}
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <a href="${file.path}" class="btn btn-primary" target="_blank">Open</a>
+                                ${file.license ? `<button class="btn btn-license" onclick="toggleSection(${index}, 'license')">Auteursrechten</button>` : ''}
+                                <button class="btn btn-info" onclick="toggleSection(${index}, 'metadata')">Metadata</button>
+                            </div>
+                        </div>
+                        <div class="file-expanded" id="expanded-${index}">
+                            <div id="license-${index}" style="display: none;">
+                                ${licenseDetails ? `
+                                    <div class="expanded-section">
+                                        <div class="expanded-title">
+                                            Auteursrechten
+                                        </div>
+                                        <div class="license-box">
+                                            <div class="license-name">${licenseDetails.name}</div>
+                                            <div class="license-details">${licenseDetails.description}</div>
+                                            <div class="attribution-box">
+                                                <div class="attribution-label">⚠️ Vermeldingsplicht:</div>
+                                                <div class="attribution-text">${licenseDetails.attribution}</div>
+                                                ${file.author || file.attribution_name ? `
+                                                    <div class="attribution-text" style="margin-top: 8px; font-weight: 600;">
+                                                        Vermeld: ${attribution}
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : '<p>Geen informatie over auteursrechten aanwezig</p>'}
+                            </div>
+                            <div id="metadata-${index}" style="display: none;">
+                                <div class="expanded-section">
+                                    <div class="expanded-title">
+                                        Metadata
+                                    </div>
+                                    <table class="metadata-table">
+                                        <tr>
+                                            <td>Titel</td>
+                                            <td>${file.title || file.name}</td>
+                                        </tr>
+                                        ${file.genre ? `
+                                            <tr>
+                                                <td>Genre</td>
+                                                <td>${file.genre}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.year_of_publication ? `
+                                            <tr>
+                                                <td>Jaar van publicatie</td>
+                                                <td>${file.year_of_publication}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.dialect ? `
+                                            <tr>
+                                                <td>Dialect</td>
+                                                <td>${file.dialect}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.specific_spelling ? `
+                                            <tr>
+                                                <td>Spelling</td>
+                                                <td>${file.specific_spelling}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.file_extra_information ? `
+                                            <tr>
+                                                <td>Extra informatie</td>
+                                                <td>${file.file_extra_information}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.author_year_of_birth ? `
+                                            <tr>
+                                                <td>Geboortejaar auteur</td>
+                                                <td>${file.author_year_of_birth}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.author_outside_community ? `
+                                            <tr>
+                                                <td>Heeft de auteur lang buiten zijn/haar dialectgemeenschap geleefd of is zijn/haar dialect sterk veranderd?</td>
+                                                <td>${file.author_outside_community}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.author_changes_description ? `
+                                            <tr>
+                                                <td>Zo ja, beschrijf aub hoe zijn/haar dialect is veranderd</td>
+                                                <td>${file.author_changes_description}</td>
+                                            </tr>
+                                        ` : ''}
+                                        ${file.author_dialect_community ? `
+                                            <tr>
+                                                <td>Met wie spreekt/sprak de auteur in een Limburgs dialect?</td>
+                                                <td>${file.author_dialect_community}</td>
+                                            </tr>
+                                        ` : ''}
+                                        <tr>
+                                            <td>Bestandsnaam</td>
+                                            <td>${file.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bestandsgrootte</td>
+                                            <td>${formatFileSize(file.size)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laatst bewerkt</td>
+                                            <td>${formatDate(file.modified)}</td>
+                                        </tr>
+                                        ${file.license ? `
+                                            <tr>
+                                                <td>Auteursrechtenlicentie</td>
+                                                <td>${file.license}</td>
+                                            </tr>
+                                        ` : ''}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            fileList.innerHTML = html;
+        }
+
+        // Toggle view
+        function toggleView(view) {
+            currentView = view;
+            viewButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === view);
+            });
+            document.body.classList.toggle('grid-view', view === 'grid');
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', filterAndSortFiles);
+        dialectFilter.addEventListener('change', filterAndSortFiles);
+        licenseFilter.addEventListener('change', filterAndSortFiles);
+        sortOrder.addEventListener('change', filterAndSortFiles);
+
+        viewButtons.forEach(btn => {
+            btn.addEventListener('click', () => toggleView(btn.dataset.view));
+        });
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
